@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>条件文とグローバル変数</title>
+
+
+<style>
+#container {
+  background: orange;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 50px;
+  text-align: center;
+}
+</style>
+
+
+<script>
+ningenWin = 0,  computerWin = 0;      //グローバル変数設定
+
+function resetGame() {
+  ningenWin = 0,   computerWin = 0;
+  document.getElementById("result").innerHTML = "右ですか？左ですか？上ですか？" ;
+  document.getElementById("status").innerHTML = "" ;   // 空白を表示
+  document.getElementById("status2").innerHTML = "" ;   // 空白を表示
+  document.getElementById("status3").innerHTML = "" ;   // 空白を表示
+  document.getElementById("status4").innerHTML = "" ;   // 空白を表示
+}
+
+function hantei(x) {
+    var sayu, hanteiString;
+    var randomValue = Math.floor(3 * Math.random());
+    switch (randomValue) {
+      case 0: sayu = "左";   break;
+      case 1: sayu = "右";   break;
+      case 2: sayu = "上";   break;
+    }
+    var hanteiValue = Math.abs(x - randomValue);
+    switch (hanteiValue) {
+      case 0: hanteiString = "予想と一致しましたので，人間の勝ち";
+             ningenWin++ ;   break;
+      case 1: hanteiString = "予想と一致しませんので，コンピュータの勝ち";
+             computerWin++ ;   break;
+      case 2: hanteiString = "予想と一致しませんので，コンピュータの勝ち";
+             computerWin++ ;   break;
+    }
+
+  document.getElementById("result").innerHTML =
+      "コンピュータは" + sayu + "でした。" + hanteiString + "です";
+  document.getElementById("status").innerHTML =
+      "人間：" + ningenWin + "勝，コンピュータ：" + computerWin + "勝";
+
+  console.log("ningenWin = ", ningenWin);
+  console.log("computerWin = ", computerWin);
+
+  if (computerWin == 3) {
+      //alert("3勝" + ningenWin + "敗でコンピュータが勝ちました");
+      document.getElementById("status2").innerHTML = "3勝" + ningenWin + "敗でコンピュータの優勝です．";
+      document.getElementById("status3").innerHTML = '<img src="banzai2.gif" alt="コンピュータの図の表示" " style="width:200px;">';
+      document.getElementById("status4").innerHTML = '<form><button type="button" onclick="resetGame()" style="width:200px;height:50px">リセットボタン</button></form>ボタンを押してください！';
+    }
+
+    if (ningenWin == 3) {
+      //alert("3勝" + computerWin + "敗で人間の勝ちです．");
+      document.getElementById("status2").innerHTML = "3勝" + computerWin + "敗で人間の優勝です．";
+      document.getElementById("status3").innerHTML = '<img src="banzai.png" alt="人間の図の表示" style="width:200px;">';
+      document.getElementById("status4").innerHTML = '<form><button type="button" onclick="resetGame()" style="width:200px;height:50px">リセットボタン</button></form>ボタンを押してください！';
+    }
+  }
+</script>
+</head>
+
+
+<body>
+
+<div id="container">
+
+<h2>簡単なゲーム（「左右上」当て）</h2>
+<p>勝負開始（3勝するまで）：コンピュータはどれを選んだでしょうか（予想）？</p>
+<img src="hata.png" alt="ゲーム用の図の表示" style="width:200px;">
+
+<form>
+  <button type="button" onclick="hantei(0)" style="width:80px;height:50px">左</button>
+  <button type="button" onclick="hantei(1)" style="width:80px;height:50px">右</button>
+  <button type="button" onclick="hantei(2)" style="width:80px;height:50px">上</button>
+</form>
+
+<div id="result">右ですか？左ですか？上ですか？</div>
+<div id="status"></div>
+<div id="status2"></div>
+<div id="status3"></div>
+<div id="status4"></div>
+
+</div>
+
+</body>
+</html>

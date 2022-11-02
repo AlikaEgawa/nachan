@@ -1,0 +1,107 @@
+﻿<html>
+<head>
+<meta charset="utf-8">
+<title>じゃんけんゲーム</title>
+
+<style>
+@charset "UTF-8";
+#container{
+    width:800px; 
+    border-style:solid;border-width:1px;border-color:#0099FF;
+    margin:auto;
+}
+#container{
+    padding:10;
+    text-align:center;
+}
+body{
+    font-size:20px;
+}
+</style>
+
+
+
+<script>
+//グローバル変数を決める
+ningenWin = 0;
+computerWin = 0;
+
+  //リセットの関数
+  function resetGame() {
+	  ningenWin = 0;
+      computerWin = 0;
+	  document.getElementById("result").innerHTML = "じゃんけん開始！";
+	  document.getElementById("status").innerHTML = "勝敗";
+  }
+
+
+  //じゃんけんの判定や表示などの関数
+  function syoubu(x) {
+    var computer_value, ningen_value, hanteiString;
+	
+    var rndValue = Math.floor(3 * Math.random());  //0,1,2 の3つの数をランダムに生成
+	
+	// 「0, 1, 2」を「グー・チョキ・パー」に対応させる
+	
+    switch (rndValue) {  // コンピュータ側の 0,1,2をグー・チョキ・パーに対応させる
+      case 0: computer_value = "グー"; break;
+      case 1: computer_value = "チョキ"; break;
+      case 2: computer_value = "パー"; break;
+    }
+	
+    switch (x) {  // 人間側の 0,1,2をグー・チョキ・パーに対応させる
+      case 0: ningen_value = "グー"; break;
+      case 1: ningen_value = "チョキ"; break;
+      case 2: ningen_value = "パー"; break;
+    }
+	
+    var hanteiValue = x - rndValue;  //人間の値からコンピュータの値を引く
+	
+	
+	
+	
+	
+	
+	// 　省略（プログラムを作成する）
+	
+	
+	
+	
+	
+	
+  }
+</script>
+</head>
+
+
+
+
+<body>
+<div id="container">
+
+    <div align="center">
+      <h2 style="color:Blue;">じゃんけんゲーム</h2>
+    </div>
+    <img src="jyanken.jpg"  width="120" />
+
+    <p id="result">じゃんけん開始！</p>
+
+    <div id="status">勝敗</div>
+  	
+  	<form>
+  		<img src="gu.png" width="80" />
+    	<button type="button" onclick="syoubu(0)">グー</button><br>
+
+	  	<img src="choki.png" width="80" />
+		<button type="button" onclick="syoubu(1)">チョキ</button><br>
+
+  		<img src="pa.png" width="80" />
+    	<button type="button" onclick="syoubu(2)">パー</button><br><br>
+
+    	<button type="button" onclick="resetGame()">リセット</button>
+  	</form>
+
+</div> 
+</body>
+</html>
+

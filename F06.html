@@ -1,0 +1,52 @@
+﻿<html>
+<head>
+<meta charset="UTF-8">
+<title>リスト選択（複数可能）</title>
+
+<script>
+function getList(elem){
+	var result = [];
+
+	for(var i = 0; i < elem.options.length; i++){
+		if(elem.options[i].selected){
+			result.push(elem.options[i].value);
+		}
+	}
+	return result;
+}
+
+function show101(){
+    //items = getList(document.fm.addr);
+    items = getList(document.getElementById("id101"));
+
+    document.getElementById("id201").innerHTML = items ;
+    console.log( items );
+}
+</script>
+</head>
+
+
+<body>
+  <form name="fm">
+	アルバイトの場所は？（Ctrlを押すと複数選択が可能）
+	<br>
+	<select id="id101" name="addr" multiple="multiple" size="7">
+		<option value="神奈川県">神奈川</option>
+		<option value="東京都">東京</option>
+		<option value="埼玉県">埼玉</option>
+		<option value="千葉県">千葉</option>
+		<option value="群馬県">群馬</option>
+		<option value="栃木県">栃木</option>
+		<option value="茨城県">茨城</option>
+		<option value="山梨県">山梨</option>
+	</select>
+	<br>
+
+    <input type="button" value="表示" onclick="show101()">
+  </form>
+
+<div id="id201"></div>
+
+</body>
+</html>
+

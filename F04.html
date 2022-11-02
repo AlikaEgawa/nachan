@@ -1,0 +1,48 @@
+﻿<html>
+<head>
+<meta charset="UTF-8">
+<title>ラジオボタン</title>
+
+<script>
+function getRadio(elem101){
+
+	var result2 = '';
+
+	for(var i = 0; i < elem101.length; i++){
+		if (elem101[i].checked){
+			result2 = elem101[i].value;
+			break;
+		}
+	}
+	return result2;
+}
+
+
+function show101(){
+    //var item2 = getRadio(document.form101.addr);
+    
+    var inputValue101 = document.getElementById("id101");
+    var item101 = getRadio(inputValue101);
+
+    document.getElementById("id201").innerHTML = '住所は、' + item101 ;
+    console.log( item101 );
+}
+</script>
+</head>
+
+<body>
+<form name="form101" id="id101">
+	住所は？
+	<label><input type="radio" name="addr" value="神奈川県" />神奈川県</label>
+	<label><input type="radio" name="addr" value="東京都" />東京都</label>
+	<label><input type="radio" name="addr" value="埼玉県" />埼玉県</label>
+	<label><input type="radio" name="addr" value="千葉県" />千葉県</label>
+	<br>
+    <input type="button" value="表示" onclick="show101()">
+</form>
+
+<div id="id201"></div>
+
+</body>
+</html>
+

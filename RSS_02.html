@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>RSS2</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script>
+function feedGet(url) {
+	$.ajax({
+		type: 'GET',
+        url: url,
+		dataType: 'json',
+		jsonpCallback: 'callback',
+		success: function(json){
+
+			container = document.getElementById("feed");
+			container.innerHTML = '<h1>' + json.channel.title + '</h1>';
+
+     		for (var i = 0; i < 10; i++) {    // または， i < json.channel.item.length
+				container.innerHTML += '<hr>';
+				container.innerHTML += '<p>' + json.channel.item[i].pubDate + '</p>';
+				container.innerHTML += '<div style="width:400pt;">' + json.channel.item[i].description + '</div>';
+				container.innerHTML += '<p> <a href="' + json.channel.item[i].link + '">' + json.channel.item[i].title + '</a>  </p>';
+          	}
+		}
+	});
+}
+
+//  XML:    https://rss.allabout.co.jp/aa/latest/ch/domestic/
+//  JSON    http://cgi.isc.senshu-u.ac.jp/~thz2368/webapi/jsonencode.php?feed=https://rss.allabout.co.jp/aa/latest/ch/domestic/
+
+feedGet('http://cgi.isc.senshu-u.ac.jp/~thz2368/webapi/jsonencode.php?feed=https://rss.allabout.co.jp/aa/latest/ch/domestic/');
+</script>
+</head>
+
+
+<body>
+<h1>RSS2のリーダー</h1>
+<div id="feed"></div>  <!-- 表示場所 -->
+</body>
+
+</html>

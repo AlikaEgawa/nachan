@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<head>
+<meta charset="UTF-8">
+<title>テキスト入力（基本）</title>
+<script>
+//テキストボックスの文字取得
+
+function show_textbox1(){
+    var str1 = document.getElementById("id101").value;
+    //var str1 = document.form101.name101.value;
+
+    alert("こんにちは、" + str1 + " さん。");
+    document.getElementById("id201").innerHTML = 'こんばんは、' + str1 + " さん。";
+    console.log(str1);
+}
+</script>
+</head>
+
+
+<body>
+<form name="form101">
+お名前は？<input type="text" id="id101" name="name101" value="神田花子"><br>
+<input type="button" value="表示" onclick="show_textbox1()"><br>
+</form>
+
+<div id="id201"></div>
+
+</body>
+</html>
+

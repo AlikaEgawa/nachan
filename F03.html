@@ -1,0 +1,41 @@
+﻿<html>
+<head>
+<meta charset="UTF-8">
+<title>ドロップダウンメニュー</title>
+<script>
+
+function show101(){
+    var item101 = document.getElementById("id101").value;  // ドロップダウンメニューから値を読み込む
+    //var item101 = document.form1.kenmei.value;
+
+    document.getElementById("id201").innerHTML = '出身県は、' + item101 ;
+    console.log(item101);
+}
+
+</script>
+</head>
+
+<body>
+<form name="form1">
+	出身県は？
+	<br>
+	<select name="kenmei" id="id101">
+		<option value="神奈川県">神奈川県</option>
+		<option value="東京都">東京都</option>
+		<option value="埼玉県">埼玉県</option>
+		<option value="千葉県">千葉県</option>
+		<option value="愛知県">愛知県</option>
+		<option value="京都府">京都府</option>
+		<option value="宮城県">宮城県</option>
+		<option value="新潟県">新潟県</option>
+		<option value="その他">その他</option>
+	</select>
+    <input type="button" value="表示" onclick="show101()">
+    <br>
+</form>
+
+<div id="id201"></div>
+
+</body>
+</html>
+

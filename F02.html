@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>フォームと関数の基本</title>
+
+<script>
+
+//テキストボックスの文字を読み込んで（「id」,「name」の2種類），実数値として取得する関数
+function textboxTateyoko(){
+    var num1 = parseFloat( document.getElementById("id103").value );    // 読み込んで，その文字を実数にする
+    var num2 = parseFloat( document.getElementById("id104").value );
+    //var num1 = parseFloat( document.tateyoko.tate.value );            // 読み込んで，その文字を実数にする
+    //var num2 = parseFloat( document.tateyoko.yoko.value );
+    
+    var menseki = num1 * num2;
+	
+    alert("長方形の面積は" + menseki + "平方cmです．");
+    document.getElementById("id201").innerHTML = menseki + "平方cmです．";
+    console.log( menseki )
+}
+</script>
+</head>
+
+
+<body>
+<h1>長方形の面積の計算</h1>
+<h4>「縦の長さ」と「横の長さ」を入力してください</h4>
+
+<form name="tateyoko">
+  <!-- 長方形の縦の長さと横の長さを入力する． -->
+  縦の長さ(cm)を入力：<input type="text" id="id103" name="tate" size="10"><br>
+  横の長さ(cm)を入力：<input type="text" id="id104" name="yoko" size="10"><br>
+  <input type="button" value="押してください！" onclick="textboxTateyoko()"><br>
+</form>
+
+
+<div id="id201"></div>
+
+</body>
+</html>

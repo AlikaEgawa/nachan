@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='UTF-8'>
+<title>RSS表示</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
+<script>
+function feedGet(url) {
+	$.ajax({
+		type: 'GET',
+        url: url,
+		dataType: 'json',
+		jsonpCallback: 'callback',
+		success: function(json){
+
+			console.log(json);
+			//console.log(json.channel);
+			//console.log(json.channel.description);
+			//console.log(json.channel.item[0].description);
+			
+			container = document.getElementById("feed");
+
+			var doc = '';  // ここに必要なデータを詰め込んでいく
+
+     		for (var num = 0; num < 3; num++) {       //  または，for(num in json.channel.item){
+				console.log(json.channel.item[num]);
+                //console.log(json.channel.item[num].title);
+				//console.log(json.channel.item[num].link);
+				//console.log(json.channel.item[num].pubDate);
+				//console.log(json.channel.item[num].description);
+				
+                // データを詰め込んでいく
+				doc = doc + '<h3>' + json.channel.item[num].title + '</h3>';
+				//doc = doc + '<h4><a href= "' + json.channel.item[num].link + '">' + json.channel.item[num].title + '</a></h4>';
+				//doc = doc + '<p>' + json.channel.item[num].pubDate + '<br>' + json.channel.item[num].description + '</p>';
+				//doc = doc + '<p>' + json.channel.item[num].link + '</p>';
+			}
+			container.innerHTML = doc;  // 詰め込んだデータの表示
+		}
+	})
+}
+
+$(function(){ // ページの読み込み時に実行
+
+    // XML  https://news.yahoo.co.jp/rss/topics/top-picks.xml
+    // JSON  http://cgi.isc.senshu-u.ac.jp/~thz2368/webapi/jsonencode.php?feed=https://news.yahoo.co.jp/rss/topics/top-picks.xml
+
+    feedGet("http://cgi.isc.senshu-u.ac.jp/~thz2368/webapi/jsonencode.php?feed=https://news.yahoo.co.jp/rss/topics/top-picks.xml");
+
+    //  https://news.yahoo.co.jp/rss/topics/top-picks.xml
+    // (練習問題1) https://www3.nhk.or.jp/rss/news/cat0.xml
+    // (練習問題2) https://www.asahi.com/rss/asahi/newsheadlines.rdf
+    // (練習問題3) https://gihyo.jp/feed/atom
+});
+
+</script>
+</head>
+
+<body>
+<h1>RSS表示</h1>
+<div id="feed"></div>    <!-- 結果の表示場所 -->
+</body>
+
+</html>

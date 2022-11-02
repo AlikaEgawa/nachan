@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Wikipedia API</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script>
+function feedGet(url) {
+
+	$.getJSON(url) // json読み込み開始
+  		.done(function(json){ // jsonの読み込みに成功した時
+
+			container = document.getElementById("feed");
+			container.innerHTML = '';
+
+     		for (var i = 0; i < 10; i++) {
+				container.innerHTML += '<div>pageid: ' + json.query.search[i].pageid + '</div>';
+				container.innerHTML += '<div>size: ' + json.query.search[i].size + '</div>';
+				container.innerHTML += '<div>timestamp: ' + json.query.search[i].timestamp + '</div>';
+				container.innerHTML += '<div>title: ' + json.query.search[i].title + '</div>';
+				container.innerHTML += '<div>snippet: ' + json.query.search[i].snippet + '</div>';
+
+				container.innerHTML += '<div>link: <a href="https://ja.wikipedia.org/w/index.php?curid=' + json.query.search[i].pageid + '">' 
+                                       + json.query.search[i].title + '</a></div>';
+
+				container.innerHTML += '<hr>';
+          	}
+	})
+	.fail(function(){ // json読み込みに失敗の場合
+		console.log('読み込み失敗');
+	});
+}
+
+
+function getresult(){
+    var str1 = document.getElementById("textbox100").value;
+    document.getElementById("query").innerHTML = str1;
+    feedGet('https://ja.wikipedia.org/w/api.php?format=json&callback=?&action=query&list=search&srsearch=' + str1);
+
+    //   https://ja.wikipedia.org/w/api.php?format=json&callback=?&action=query&list=search&srsearch=専修大学'
+}
+</script>
+</head>
+
+<body>
+<h1>Web API: wikipedia </h1>
+
+<form name="js">
+検索語は？<input type="text" id="textbox100" value="専修大学"><br>
+<input type="button" value="検索!" onclick="getresult()">
+
+<span id="query"></span>  <!-- 検索文字の表示場所 -->
+</form>
+
+<hr>
+<div id="feed"></div>  <!-- 検索結果の表示場所 -->
+</body>
+</html>
