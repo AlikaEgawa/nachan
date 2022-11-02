@@ -1,8 +1,9 @@
-﻿<html>
+﻿<!DOCTYPE html>
+<html>
 <head>
 <meta charset="utf-8">
 <title>じゃんけんゲーム</title>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <style>
 @charset "UTF-8";
 #container{
@@ -17,91 +18,136 @@
 body{
     font-size:20px;
 }
+h2 {
+  font-size: 20px;
+}
 </style>
 
-
-
 <script>
+console.log("start");
 //グローバル変数を決める
 ningenWin = 0;
 computerWin = 0;
+count = 0;
+win_streaks = 0;
+console.log(count);
 
-  //リセットの関数
-  function resetGame() {
-	  ningenWin = 0;
-      computerWin = 0;
-	  document.getElementById("result").innerHTML = "じゃんけん開始！";
-	  document.getElementById("status").innerHTML = "勝敗";
+window.onload = function() {
+  $('h2').text('じゃんけんを始めしょう');
+}
+
+  // リセットの関数
+function resetGame() {
+  ningenWin = 0;
+  computerWin = 0;
+  
+}
+
+// じゃんけんの判定や表示などの関数
+function syoubu() {
+  $('h2').text('じゃんけんを始めしょう');
+  count++;
+
+  let computer_value = Math.floor(3 * Math.random());  //0,1,2 の3つの数をランダムに生成
+  let computer_hand;
+// 「0, 1, 2」を「グー・チョキ・パー」に対応させる
+  switch (computer_value) {  // コンピュータ側の 0,1,2をグー・チョキ・パーに対応させる
+    case 0:
+      computer_hand = "グー";
+      break;
+    case 1:
+      computer_hand = "チョキ";
+      break;
+    case 2:
+      computer_hand = "パー";
+      break;
+  };
+  // console.log(computer_value);
+  // console.log("コンピュータは" + computer_value + ":" + computer_hand + "を出します");
+
+  let ningen_value = $("#hand").val();
+  let ningen_hand;
+  if (ningen_value == 0) {
+    ningen_hand = "グー"
   }
-
-
-  //じゃんけんの判定や表示などの関数
-  function syoubu(x) {
-    var computer_value, ningen_value, hanteiString;
-	
-    var rndValue = Math.floor(3 * Math.random());  //0,1,2 の3つの数をランダムに生成
-	
-	// 「0, 1, 2」を「グー・チョキ・パー」に対応させる
-	
-    switch (rndValue) {  // コンピュータ側の 0,1,2をグー・チョキ・パーに対応させる
-      case 0: computer_value = "グー"; break;
-      case 1: computer_value = "チョキ"; break;
-      case 2: computer_value = "パー"; break;
-    }
-	
-    switch (x) {  // 人間側の 0,1,2をグー・チョキ・パーに対応させる
-      case 0: ningen_value = "グー"; break;
-      case 1: ningen_value = "チョキ"; break;
-      case 2: ningen_value = "パー"; break;
-    }
-	
-    var hanteiValue = x - rndValue;  //人間の値からコンピュータの値を引く
-	
-	
-	
-	
-	
-	
-	// 　省略（プログラムを作成する）
-	
-	
-	
-	
-	
-	
+  if (ningen_value == 1) {
+    ningen_hand = "チョキ"
   }
+  if (ningen_value == 2) {
+    ningen_hand = "パー"
+  }
+  // console.log(ningen_value);
+  // console.log("あなたは" + ningen_value + ":" + ningen_hand + "を選択しました");
+  let whoWon = checkJanken(ningen_value, computer_value)
+  if (whoWon == "DRAW") { win_streaks = 0; };
+  if (whoWon == "YOU LOSE") { win_streaks = 0; };
+  if (whoWon == "YOU WON") { win_streaks++; };
+  console.log(count + "回目：" + whoWon);
+  console.log("win_streaks"+ win_streaks);
+  // console.log(whoWon)
+  if (ningenWin == 1 ) {
+    $('#message').text('一勝目（初勝利）ですね！');
+    $('h2').text('');
+  };
+  if (ningenWin > 1) {
+    $('#message').text('現在' + ningenWin + "勝です");
+    $('h2').text('いい感じ！');
+  }
+  if (ningenWin == 9) {
+    $('#message').text('現在9勝！　あと1勝で優勝ですね！');
+    $('h2').text('がんばれ！');
+  };
+  if (win_streaks >= 2) {
+    $('#streak').text(win_streaks + "連勝中です");
+    if (win_streaks >= 5) {
+      $('#streak').text("調子がいいですね！！");
+    }
+  } else {
+    $('#streak').text("");
+  }
+}
+
+
+function checkJanken(me, op) {
+  const rmd = (me - op + 3) % 3;
+  if(rmd == 0) {
+    return "DRAW"
+  }
+  if(rmd == 1) {
+    computerWin++;
+    return "YOU LOSE"
+  }
+  if(rmd == 2) {
+    ningenWin++;
+    return "YOU WON"
+  }
+}
+
 </script>
 </head>
 
-
-
-
 <body>
 <div id="container">
-
-    <div align="center">
-      <h2 style="color:Blue;">じゃんけんゲーム</h2>
-    </div>
-    <img src="jyanken.jpg"  width="120" />
-
-    <p id="result">じゃんけん開始！</p>
-
-    <div id="status">勝敗</div>
-  	
-  	<form>
-  		<img src="gu.png" width="80" />
-    	<button type="button" onclick="syoubu(0)">グー</button><br>
-
-	  	<img src="choki.png" width="80" />
-		<button type="button" onclick="syoubu(1)">チョキ</button><br>
-
-  		<img src="pa.png" width="80" />
-    	<button type="button" onclick="syoubu(2)">パー</button><br><br>
-
-    	<button type="button" onclick="resetGame()">リセット</button>
-  	</form>
-
-</div> 
+  <div align="center">
+    <h1 style="color:Blue;">じゃんけんゲーム</h1>
+  </div>
+  <!-- <img src="jyanken.jpg"  width="120" /> -->
+  <h2 id="result"></h2>
+  <div id="status">勝敗</div>
+  <select id="hand">
+    <option value="" selected>選択する</option>
+    <option value="0">グー</option>
+    <option value="1">チョキ</option>
+    <option value="2">パー</option>
+  </select>
+  <br><br>
+  <button type="button" onclick="syoubu()">いざ勝負</button>
+  <br>
+  <p id="message"></p>
+  <p id="streak"></p>
+  <br>
+  <button type="button" onclick="resetGame()">リセット</button>
+  </div>
 </body>
-</html>
 
+</html>
